@@ -1,0 +1,48 @@
+{
+  "currentState": "role_activated",
+  "stateHistory": [
+    {
+      "from": "initial",
+      "command": "init",
+      "timestamp": "2025-08-04T00:54:07.926Z",
+      "args": [
+        {
+          "workingDirectory": "w:\\Cursor Study",
+          "ideType": "cursor"
+        }
+      ]
+    },
+    {
+      "from": "initialized",
+      "command": "welcome",
+      "timestamp": "2025-08-04T00:54:11.854Z",
+      "args": []
+    },
+    {
+      "from": "service_discovery",
+      "command": "action",
+      "timestamp": "2025-08-04T00:54:16.022Z",
+      "args": [
+        "liangxiaoyang"
+      ]
+    },
+    {
+      "from": "role_activated",
+      "command": "remember",
+      "timestamp": "2025-08-04T00:54:26.126Z",
+      "args": [
+        "liangxiaoyang",
+        "[{\"content\":\"用户调用了梁晓阳角色，需要以项目经理身份提供专业服务\",\"schema\":\"用户需求\\n  角色调用\\n    梁晓阳激活\",\"strength\":0.95,\"type\":\"ATOMIC\"},{\"content\":\"当前项目是USTB AI教务助手，处于专家开发阶段\",\"schema\":\"项目状态\\n  USTB项目\\n    专家开发阶段\",\"strength\":0.9,\"type\":\"ATOMIC\"},{\"content\":\"梁晓阳具备8大核心能力和验收管理职责\",\"schema\":\"角色能力\\n  项目经理\\n    8大核心能力\",\"strength\":0.9,\"type\":\"ATOMIC\"}]"
+      ]
+    },
+    {
+      "from": "memory_saved",
+      "command": "action",
+      "timestamp": "2025-08-04T00:56:51.773Z",
+      "args": [
+        "nuwa"
+      ]
+    }
+  ],
+  "lastUpdated": "2025-08-04T00:56:51.824Z"
+}

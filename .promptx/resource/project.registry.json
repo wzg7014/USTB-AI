@@ -1,0 +1,96 @@
+{
+  "version": "2.0.0",
+  "source": "project",
+  "metadata": {
+    "version": "2.0.0",
+    "description": "project 级资源注册表",
+    "createdAt": "2025-08-04T00:54:07.941Z",
+    "updatedAt": "2025-08-04T00:54:07.947Z",
+    "resourceCount": 5
+  },
+  "resources": [
+    {
+      "id": "acceptance-management",
+      "source": "project",
+      "protocol": "execution",
+      "name": "Acceptance Management 执行模式",
+      "description": "执行模式，定义具体的行为模式",
+      "reference": "@project://.promptx/resource/role/liangxiaoyang/execution/acceptance-management.execution.md",
+      "metadata": {
+        "createdAt": "2025-08-04T00:54:07.944Z",
+        "updatedAt": "2025-08-04T00:54:07.944Z",
+        "scannedAt": "2025-08-04T00:54:07.944Z",
+        "path": "role/liangxiaoyang/execution/acceptance-management.execution.md"
+      }
+    },
+    {
+      "id": "liangxiaoyang",
+      "source": "project",
+      "protocol": "role",
+      "name": "Liangxiaoyang 角色",
+      "description": "专业角色，提供特定领域的专业能力",
+      "reference": "@project://.promptx/resource/role/liangxiaoyang/liangxiaoyang.role.md",
+      "metadata": {
+        "createdAt": "2025-08-04T00:54:07.944Z",
+        "updatedAt": "2025-08-04T00:54:07.944Z",
+        "scannedAt": "2025-08-04T00:54:07.944Z",
+        "path": "role/liangxiaoyang/liangxiaoyang.role.md"
+      }
+    },
+    {
+      "id": "quality-control",
+      "source": "project",
+      "protocol": "thought",
+      "name": "Quality Control 思维模式",
+      "description": "思维模式，指导AI的思考方式",
+      "reference": "@project://.promptx/resource/role/liangxiaoyang/thought/quality-control.thought.md",
+      "metadata": {
+        "createdAt": "2025-08-04T00:54:07.944Z",
+        "updatedAt": "2025-08-04T00:54:07.944Z",
+        "scannedAt": "2025-08-04T00:54:07.944Z",
+        "path": "role/liangxiaoyang/thought/quality-control.thought.md"
+      }
+    },
+    {
+      "id": "github-manager",
+      "source": "project",
+      "protocol": "manual",
+      "name": "Github Manager manual",
+      "description": "manual类型的资源",
+      "reference": "@project://.promptx/resource/tool/github-manager/github-manager.manual.md",
+      "metadata": {
+        "createdAt": "2025-08-04T00:54:07.945Z",
+        "updatedAt": "2025-08-04T00:54:07.945Z",
+        "scannedAt": "2025-08-04T00:54:07.945Z",
+        "path": "tool/github-manager/github-manager.manual.md"
+      }
+    },
+    {
+      "id": "github-manager",
+      "source": "project",
+      "protocol": "tool",
+      "name": "Github Manager tool",
+      "description": "tool类型的资源",
+      "reference": "@project://.promptx/resource/tool/github-manager/github-manager.tool.js",
+      "metadata": {
+        "createdAt": "2025-08-04T00:54:07.945Z",
+        "updatedAt": "2025-08-04T00:54:07.945Z",
+        "scannedAt": "2025-08-04T00:54:07.945Z",
+        "path": "tool/github-manager/github-manager.tool.js"
+      }
+    }
+  ],
+  "stats": {
+    "totalResources": 5,
+    "byProtocol": {
+      "execution": 1,
+      "role": 1,
+      "thought": 1,
+      "manual": 1,
+      "tool": 1
+    },
+    "bySource": {
+      "project": 5
+    }
+  }
+}
