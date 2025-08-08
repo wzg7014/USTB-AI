@@ -1,0 +1,233 @@
+{
+  "timestamp": 1754543749.726017,
+  "test_summary": {
+    "health_check": true,
+    "search_success_rate": 1.0
+  },
+  "health_check": {
+    "success": true,
+    "status_code": 200,
+    "response_time": 2.101586,
+    "data": {
+      "status": "healthy",
+      "gpu_available": true,
+      "gpu_memory_used": 0.0,
+      "gpu_memory_total": 23.52716064453125,
+      "service_uptime": 402.85431480407715,
+      "version": "1.0.0"
+    },
+    "error": null
+  },
+  "api_endpoints": {
+    "endpoint_results": [
+      {
+        "endpoint": {
+          "path": "/",
+          "method": "GET"
+        },
+        "status_code": 404,
+        "success": true,
+        "response_size": 22
+      },
+      {
+        "endpoint": {
+          "path": "/health",
+          "method": "GET"
+        },
+        "status_code": 200,
+        "success": true,
+        "response_size": 154
+      },
+      {
+        "endpoint": {
+          "path": "/api/v1/search",
+          "method": "POST",
+          "data": {
+            "query": "test",
+            "top_k": 1
+          }
+        },
+        "status_code": 200,
+        "success": true,
+        "response_size": 224
+      },
+      {
+        "endpoint": {
+          "path": "/docs",
+          "method": "GET"
+        },
+        "status_code": 200,
+        "success": true,
+        "response_size": 944
+      },
+      {
+        "endpoint": {
+          "path": "/openapi.json",
+          "method": "GET"
+        },
+        "status_code": 200,
+        "success": true,
+        "response_size": 2915
+      }
+    ]
+  },
+  "search_tests": [
+    {
+      "success": true,
+      "status_code": 200,
+      "response_time": 2.160745620727539,
+      "query": "如何查询成绩",
+      "request_data": {
+        "query": "如何查询成绩",
+        "top_k": 5,
+        "include_metadata": true,
+        "include_attachments": true
+      },
+      "data": {
+        "query": "如何查询成绩",
+        "summary": "根据您的查询，为您找到了选课相关的指导文档和操作说明。",
+        "documents": [],
+        "attachments": [],
+        "relevance_score": 0.88,
+        "response_time": 0.05098557472229004,
+        "gpu_accelerated": true
+      }
+    },
+    {
+      "success": true,
+      "status_code": 200,
+      "response_time": 2.211530923843384,
+      "query": "选课系统怎么使用",
+      "request_data": {
+        "query": "选课系统怎么使用",
+        "top_k": 5,
+        "include_metadata": true,
+        "include_attachments": true
+      },
+      "data": {
+        "query": "选课系统怎么使用",
+        "summary": "根据您的查询，为您找到了选课相关的指导文档和操作说明。",
+        "documents": [],
+        "attachments": [],
+        "relevance_score": 0.88,
+        "response_time": 0.050649404525756836,
+        "gpu_accelerated": true
+      }
+    },
+    {
+      "success": true,
+      "status_code": 200,
+      "response_time": 2.1862926483154297,
+      "query": "毕业论文要求",
+      "request_data": {
+        "query": "毕业论文要求",
+        "top_k": 5,
+        "include_metadata": true,
+        "include_attachments": true
+      },
+      "data": {
+        "query": "毕业论文要求",
+        "summary": "根据您的查询，为您找到了选课相关的指导文档和操作说明。",
+        "documents": [],
+        "attachments": [],
+        "relevance_score": 0.88,
+        "response_time": 0.05061650276184082,
+        "gpu_accelerated": true
+      }
+    },
+    {
+      "success": true,
+      "status_code": 200,
+      "response_time": 2.1933555603027344,
+      "query": "grade query",
+      "request_data": {
+        "query": "grade query",
+        "top_k": 5,
+        "include_metadata": true,
+        "include_attachments": true
+      },
+      "data": {
+        "query": "grade query",
+        "summary": "根据您的查询，为您找到了选课相关的指导文档和操作说明。",
+        "documents": [],
+        "attachments": [],
+        "relevance_score": 0.88,
+        "response_time": 0.050740957260131836,
+        "gpu_accelerated": true
+      }
+    },
+    {
+      "success": true,
+      "status_code": 200,
+      "response_time": 2.2021093368530273,
+      "query": "course selection",
+      "request_data": {
+        "query": "course selection",
+        "top_k": 5,
+        "include_metadata": true,
+        "include_attachments": true
+      },
+      "data": {
+        "query": "course selection",
+        "summary": "根据您的查询，为您找到了选课相关的指导文档和操作说明。",
+        "documents": [],
+        "attachments": [],
+        "relevance_score": 0.88,
+        "response_time": 0.05074787139892578,
+        "gpu_accelerated": true
+      }
+    }
+  ],
+  "parameter_tests": {
+    "test_results": [
+      {
+        "test_case": {
+          "query": "成绩查询",
+          "top_k": 1,
+          "include_metadata": false,
+          "include_attachments": false
+        },
+        "status_code": 200,
+        "success": true,
+        "document_count": 0,
+        "attachment_count": 0
+      },
+      {
+        "test_case": {
+          "query": "成绩查询",
+          "top_k": 3,
+          "include_metadata": true,
+          "include_attachments": false
+        },
+        "status_code": 200,
+        "success": true,
+        "document_count": 0,
+        "attachment_count": 0
+      },
+      {
+        "test_case": {
+          "query": "成绩查询",
+          "top_k": 5,
+          "include_metadata": true,
+          "include_attachments": true
+        },
+        "status_code": 200,
+        "success": true,
+        "document_count": 0,
+        "attachment_count": 0
+      },
+      {
+        "test_case": {
+          "query": "grade",
+          "top_k": 3,
+          "include_metadata": true,
+          "include_attachments": true
+        },
+        "status_code": 200,
+        "success": true,
+        "document_count": 0,
+        "attachment_count": 0
+      }
+    ]
+  }
+}

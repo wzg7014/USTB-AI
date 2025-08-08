@@ -1,0 +1,34 @@
+# USTB RAG系统依赖包 - 使用可用版本
+# FastAPI主服务
+fastapi
+uvicorn[standard]
+pydantic
+
+# Qdrant向量数据库
+qdrant-client
+
+# BCE-embedding-base_v1嵌入模型
+sentence-transformers
+transformers
+torch
+
+# 数据处理
+pandas
+numpy
+scikit-learn
+
+# HTTP和工具
+httpx
+aiofiles
+python-multipart
+
+# 日志
+loguru
+
+# 配置管理
+python-dotenv
+pyyaml
+
+# 测试
+pytest
+pytest-asyncio

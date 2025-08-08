@@ -1,0 +1,30 @@
+# USTB AI教务助手后端依赖包
+# 核心框架 - 现代版本，支持Python 3.13
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# HTTP客户端
+httpx==0.25.2
+
+# 数据验证和序列化 - Pydantic 2.x，支持Python 3.13
+pydantic==2.5.0
+
+# 数据库
+motor==3.3.2  # MongoDB异步驱动
+redis==5.0.1
+
+# 认证和安全
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# 监控和日志
+prometheus-client==0.19.0
+
+# 开发和测试
+pytest==7.4.3
+pytest-asyncio==0.21.1
+httpx==0.25.2  # 用于测试HTTP请求
+
+# 部署
+gunicorn==21.2.0

@@ -1,0 +1,11 @@
+{
+  "api_base": "https://dashscope.aliyuncs.com/api/v1/services/aigc/text-generation/generation",
+  "api_key": "YOUR_QWEN_API_KEY",
+  "model": "qwen-turbo",
+  "parameters": {
+    "max_tokens": 2000,
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "repetition_penalty": 1.1
+  }
+}
