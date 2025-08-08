@@ -52,7 +52,7 @@ python system/ssh_tunnel/setup_web_tunnel.py
 - **映射**: localhost:8003 → AutoDL:8003
 - **连接**: 稳定连接到AutoDL服务器
 
-#### 4. AutoDL服务启动 (需要修复)
+#### 4. AutoDL服务启动
 ```bash
 # 在AutoDL环境中启动
 cd /root/autodl-tmp/ustb-project
@@ -63,7 +63,7 @@ python rag_service_v2.py
 # LoRA推理服务 (端口8004)
 python qwen_inference_server.py
 
-# Web API连接器 (端口8003) - 需要修复
+# Web API连接器 (端口8003) 
 python system/web_api_connector/web_api_connector.py
 ```
 
