@@ -51,14 +51,18 @@ def kill_port_process(port):
 def create_ssh_tunnel(local_port, remote_port, service_name):
     """创建SSH隧道"""
     print(f"🚀 启动 {service_name} SSH隧道 ({local_port}→{remote_port})...")
-    
+
     # 检查并清理端口
     kill_port_process(local_port)
     time.sleep(1)
-    
-    # SSH命令
+
+    # 获取SSH密钥路径
+    ssh_key = os.path.expanduser("~/.ssh/id_ed25519_autodl")
+
+    # SSH命令 - 使用密钥认证
     ssh_command = [
         "ssh", "-N",
+        "-i", ssh_key,
         "-L", f"{local_port}:localhost:{remote_port}",
         "-p", "21020",
         "root@connect.bjb1.seetacloud.com",
@@ -66,24 +70,19 @@ def create_ssh_tunnel(local_port, remote_port, service_name):
         "-o", "UserKnownHostsFile=/dev/null",
         "-o", "ServerAliveInterval=30"
     ]
-    
+
     try:
         # 启动SSH进程
         process = subprocess.Popen(
             ssh_command,
-            stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
         )
-        
-        # 发送密码
-        process.stdin.write("oqpdtTQSuC2B\n")
-        process.stdin.flush()
-        
+
         # 等待隧道建立
         time.sleep(3)
-        
+
         if process.poll() is None:
             print(f"✅ {service_name} SSH隧道启动成功")
             return process
@@ -91,7 +90,7 @@ def create_ssh_tunnel(local_port, remote_port, service_name):
             stderr = process.stderr.read() if process.stderr else "无错误信息"
             print(f"❌ {service_name} SSH隧道启动失败: {stderr}")
             return None
-            
+
     except Exception as e:
         print(f"❌ 创建SSH隧道失败: {e}")
         return None
@@ -104,7 +103,7 @@ def main():
     # 隧道配置
     tunnels = [
         {"local": 8000, "remote": 8000, "name": "RAG检索服务"},
-        {"local": 8081, "remote": 8004, "name": "模型推理服务"}
+        {"local": 8003, "remote": 8003, "name": "Web API连接器"}
     ]
     
     processes = []
@@ -138,7 +137,7 @@ def main():
             print("\n🎉 所有服务连接正常！混合云架构就绪！")
             print("\n📋 服务访问地址:")
             print("   RAG检索服务: http://localhost:8000")
-            print("   模型推理服务: http://localhost:8081")
+            print("   Web API连接器: http://localhost:8003")
             print("\n🔄 隧道保持运行中... (Ctrl+C 停止)")
             
             # 保持运行

@@ -25,52 +25,143 @@
 
 ### 📋 **完整启动流程**
 
-#### 1. Web前端启动 (localhost:3000)
+#### 🚀 **启动顺序：AutoDL服务 → SSH隧道 → 本地服务**
+
+#### 1. AutoDL服务启动 (优先启动)
+**在AutoDL环境中按顺序启动以下服务：**
+
+##### 1.1 RAG服务v2.0 (端口8000)
+```bash
+cd /root/autodl-tmp/ustb-project/services/rag_system
+nohup /root/miniconda3/bin/python rag_service_v2.py > ../../logs/rag_service.log 2>&1 &
+```
+- **状态**: ✅ 正常运行
+- **验证**: `curl http://localhost:8000/health`
+- **功能**: 4621条USTB教务数据检索，BCE模型向量化
+
+##### 1.2 LoRA推理服务 (端口8001)
+```bash
+cd /root/autodl-tmp/ustb-project/services/model_inference
+nohup /root/miniconda3/envs/unsloth/bin/python ustb_lora_inference_server.py > ../../logs/lora_inference.log 2>&1 &
+```
+- **状态**: ✅ 正常运行
+- **验证**: `curl http://localhost:8001/health`
+- **功能**: Qwen2.5-7B-Instruct + USTB LoRA微调模型推理
+- **关键**: 必须使用unsloth环境的Python路径
+
+##### 1.3 混合API服务 (端口8002)
+```bash
+cd /root/autodl-tmp/ustb-project/services/model_inference
+nohup /root/miniconda3/bin/python api_interface.py > ../../logs/hybrid_api.log 2>&1 &
+```
+- **状态**: ✅ 正常运行
+- **验证**: `curl http://localhost:8002/health`
+- **功能**: 协调RAG服务(8000)和LoRA服务(8001)，提供混合回答
+
+##### 1.4 Web API连接器 (端口8003)
+```bash
+cd /root/autodl-tmp/ustb-project/system/web_integration
+nohup /root/miniconda3/bin/python web_api_connector.py > ../../logs/web_api_connector.log 2>&1 &
+```
+- **状态**: ✅ 正常运行
+- **验证**: `curl http://localhost:8003/health`
+- **功能**: Web前后端API适配器，连接混合API服务(8002)
+
+#### 2. SSH隧道启动 (本地Windows)
+```bash
+cd system/ssh_tunnel
+python start_tunnels.py
+```
+- **功能**: 一键启动所有必需的SSH隧道
+- **映射**:
+  - localhost:8000 → AutoDL:8000 (RAG服务)
+  - localhost:8003 → AutoDL:8003 (Web API连接器)
+- **密码**: 需要手动输入AutoDL密码 `oqpdtTQSuC2B` (两次)
+- **验证**: 启动后自动检查服务连接状态
+- **状态**: 保持运行，Ctrl+C停止
+
+#### 3. Web后端启动 (localhost:8001)
+```bash
+cd src/backend
+python -m uvicorn app:app --host 0.0.0.0 --port 8001 --reload
+```
+- **状态**: ✅ 正常运行
+- **API**: OpenAI兼容接口 `/v1/chat/completions`
+- **连接**: 通过SSH隧道连接AutoDL Web API连接器(8003)
+- **认证**: MD5哈希验证正常
+
+#### 4. Web前端启动 (localhost:3000)
 ```bash
 cd src/frontend
 npm run dev
 ```
-- **状态**: ✅ 正常运行 (Terminal 54)
+- **状态**: ✅ 正常运行
 - **访问**: http://localhost:3000
 - **认证**: 访问码 `ustb2025`
-- **修复**: 已解决Next.js路由404问题
+- **连接**: 调用本地后端API(8001)
 
-#### 2. Web后端启动 (localhost:8001)
+### 🔧 **故障排除指南**
+
+#### 常见问题解决方案：
+
+##### 1. SSH隧道连接失败
 ```bash
-cd src/backend
-python app.py
-```
-- **状态**: ✅ 正常运行 (Terminal 48)
-- **API**: OpenAI兼容接口 `/v1/chat/completions`
-- **认证**: MD5哈希验证正常
+# 检查AutoDL服务状态
+python system/ssh_tunnel/check_autodl_services.py
 
-#### 3. SSH隧道启动
+# 重新启动隧道
+cd system/ssh_tunnel
+python start_tunnels.py
+```
+- **密码输入**: 需要手动输入 `oqpdtTQSuC2B` (两次)
+- **端口冲突**: 自动清理占用端口的进程
+
+##### 2. 后端500错误 - 混合API连接失败
 ```bash
-python system/ssh_tunnel/setup_web_tunnel.py
-```
-- **状态**: ✅ 正常运行 (Terminal 17)
-- **映射**: localhost:8003 → AutoDL:8003
-- **连接**: 稳定连接到AutoDL服务器
+# 检查SSH隧道状态
+curl http://localhost:8003/health
 
-#### 4. AutoDL服务启动
+# 检查AutoDL Web API连接器
+# (通过SSH工具在AutoDL上执行)
+curl http://localhost:8003/health
+```
+- **根本原因**: SSH隧道未建立或Web API连接器未启动
+- **解决方案**: 按顺序重启AutoDL服务和SSH隧道
+
+##### 3. AutoDL服务异常
 ```bash
-# 在AutoDL环境中启动
-cd /root/autodl-tmp/ustb-project
+# 检查服务进程
+ps aux | grep python
 
-# RAG系统 (端口8000)
-python rag_service_v2.py
+# 查看日志文件
+tail -f /root/autodl-tmp/ustb-project/logs/*.log
 
-# LoRA推理服务 (端口8004)
-python qwen_inference_server.py
-
-# Web API连接器 (端口8003) 
-python system/web_api_connector/web_api_connector.py
+# 重启服务 (按顺序)
+# 1. RAG服务 → 2. LoRA推理 → 3. 混合API → 4. Web API连接器
 ```
 
-### 🔧 **当前问题诊断**
-- **问题**: Web后端无法连接混合API服务 (localhost:8003)
-- **原因**: AutoDL上的Web API连接器服务可能未启动
-- **解决**: 需要在AutoDL环境中启动Web API连接器服务
+##### 4. 前端404错误
+```bash
+# 检查前端服务
+cd src/frontend
+npm run dev
+```
+- **访问地址**: http://localhost:3000
+- **认证码**: `ustb2025`
+
+##### 5. LoRA推理服务启动失败
+```bash
+# 必须使用unsloth环境
+/root/miniconda3/envs/unsloth/bin/python ustb_lora_inference_server.py
+```
+- **关键**: 不能使用默认Python路径
+- **错误**: "No module named 'unsloth'" → 使用错误的Python路径
+
+#### 🚨 **启动顺序很重要！**
+1. **AutoDL服务** (RAG → LoRA → 混合API → Web API连接器)
+2. **SSH隧道** (start_tunnels.py)
+3. **本地后端** (uvicorn app)
+4. **本地前端** (npm run dev)
 
 ---
 
