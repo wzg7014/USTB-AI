@@ -76,8 +76,8 @@ python start_tunnels.py
 - **映射**:
   - localhost:8000 → AutoDL:8000 (RAG服务)
   - localhost:8003 → AutoDL:8003 (Web API连接器)
-- **密码**: 需要手动输入AutoDL密码 `oqpdtTQSuC2B` (两次)
-- **验证**: 启动后自动检查服务连接状态
+  - 注意：公共文档禁止出现真实密码/密钥；请使用密钥文件或环境变量，或在交互中输入密码（不落盘）。
+  - **验证**: 启动后自动检查服务连接状态
 - **状态**: 保持运行，Ctrl+C停止
 
 #### 3. Web后端启动 (localhost:8001)
@@ -113,7 +113,7 @@ python system/ssh_tunnel/check_autodl_services.py
 cd system/ssh_tunnel
 python start_tunnels.py
 ```
-- **密码输入**: 需要手动输入 `oqpdtTQSuC2B` (两次)
+- **身份校验**: 使用密钥或环境变量注入的方式进行认证；如需口令请在交互界面输入，避免记录在文档与脚本中。
 - **端口冲突**: 自动清理占用端口的进程
 
 ##### 2. 后端500错误 - 混合API连接失败

@@ -391,3 +391,6 @@ temp_upload_script.py
 # Project specific temporary files
 项目复盘-*.md
 temp_vue_chat/
+
+.cursor-tmp/
+.claude/
